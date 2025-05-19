@@ -1,0 +1,28 @@
+.left .paragraph p{
+    width: 500px;
+}
+.right .right-content .policy {
+    position: absolute;
+    top: 550px;
+    left: 30px;
+}
+.right .right-content a {
+    top: 525px;
+    left: -135px;
+}
+.right .right-content .login-button {
+    top: 625px;
+    left: 30px;
+}
+.right .right-content .login-button button {
+    display: block;
+}
+.right .right-content .login-button .icon {
+    left: 0px;
+    top: 75px;
+}
+
+.right .right-content .footer {
+    width: 100%;
+    left: 150px;
+}

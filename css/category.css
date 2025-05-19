@@ -1,0 +1,91 @@
+/* Start Vairables */
+:root {
+    --main-color: #007AFF;
+}
+/* End Vairables */
+/* Start Global Rules */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: 'Public Sans', sans-serif;
+    /* font-family: 'Public Sans', sans-serif; */
+    height: 100vh;
+    overflow: hidden;
+}
+/* End Global Rules */
+.logo {
+    position: relative;
+    top: -76px;
+    left: 13px;
+}
+.logo img {
+    max-width: 204px;
+    min-height: 53px;
+}
+.categories {
+    position: relative;
+    top: -152px;
+    left: 154px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: repeat(3, auto);
+    /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+    gap: 10px;
+    margin-top: 20px;
+    text-align: center;
+    width: 90%;
+}
+.categories div {
+    width: 220px;
+    height: 163px;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1A7BFE;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.5%;
+    border: 1px solid #1A7BFE;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.arrow-button {
+    position: relative;
+    top: -160px;
+    left: 740px;
+    width: 77px;
+    height: 77px;
+    background-color: #1A7BFE;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 32px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border: none;
+    transition: .3;
+    -webkit-transition: .3;
+    -moz-transition: .3;
+    -ms-transition: .3;
+    -o-transition: .3;
+}
+.arrow-button:hover,
+.categories div:hover {
+    background-color: var(--main-color); /* أزرق أغمق */
+    color: white;
+}
