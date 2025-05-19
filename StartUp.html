@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Muntalq</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+
+        <style>
+           .upload-container {
+    width: 80%;
+    max-width: 500px;
+}
+
+.upload-box {
+    background: #1E1E1E;
+    border: 1px dashed #3A3A3A;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.upload-label input {
+    display: none;
+}
+
+.upload-label img {
+    width: 24px;
+    opacity: 0.7;
+}
+
+.upload-label p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #bbb;
+}
+
+        </style>
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/e78f8f1093.js" crossorigin="anonymous"></script>
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body style="background-color: whitesmoke;">
+
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid position-relative overflow-hidden">
+            <nav class="navbar navbar-expand-lg fixed-top navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="display-6 text-primary m-0"><img style="height: 300px;size: 300px;" src="img/logo.png"></img></h1>
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a href="index.html" class="nav-item nav-link ">Home</a>
+                     
+                        <a href="StartUp.html" class="nav-item nav-link active">Startup Profile</a>
+                        <a href="Opportunities.html" class="nav-item nav-link">Opportunities</a>
+                        <a href="education.html" class="nav-item nav-link">Education</a>
+                        <div class="nav-item dropdown">
+                             <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown" ><img src="img/internet.png" style="height: 15px;">  Language</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="https://medoiiehab.github.io/Montalq/" class="dropdown-item">English</a>
+                                <a href="https://medoiiehab-github-io.translate.goog/Montalq/?_x_tr_sl=en&_x_tr_tl=ar&_x_tr_hl=en&_x_tr_pto=wapp" class="dropdown-item">Arabic</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <a href="login.html" class="btn btn-light border border-primary  text-primary py-2 px-4 me-4">Log In</a>
+                    <a href="SignUp.html" class="btn btn-primary  text-white py-2 px-4">Sign Up</a>
+                </div>
+            </nav>
+
+
+        <!-- Navbar & Hero End -->
+
+
+         <!-- Header Start -->
+         <div class="hero-header overflow-hidden px-5">
+            
+            <div class="row gy-5 align-items-center" style="background-color: white;">
+                <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
+                    <p class="fs-4 mb-4 wow fadeInUp" data-wow-delay="0.5s" style="color: #1A7BFF;">Startup Your Business and Find the Investors.</p>
+                    <h1 class="display-4 text-dark mb-4 wow fadeInUp" data-wow-delay="0.3s">Create Your Startup Pitch   .</h1>
+                    <p class="fs-4 mb-4 wow fadeInUp" data-wow-delay="0.5s">1-Fill The Form.<br>2-There Are Expert Mentors Ready to Review Your Startup Profile
+                    <br>3-You Will Recieve Notes From The Experts After The Review.
+                    </p>
+                       <a href="#" class="w3-hide-small w3-hide-medium" style="color: #252525; font-size: medium; font-weight: bold; margin-left: 20px;">
+                    <img style="height: 40px;" src="img/play-button.png"> How It Works</a> 
+                    <a href="#" class="w3-hide-large" style="color: #252525; font-size: medium; font-weight: bold; margin-left: 20px;">
+                     <br><br>   <img style="height: 40px;" src="img/play-button.png"> How It Works</a> 
+                </div>
+                <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.2s">
+                    <img src="img/startup.png" class="img-fluid w-100 h-100" alt="">
+                </div>
+            </div>
+        </div>  <!-- Header End -->
+     
+
+        <!-- Contact Start --> 
+        <div class="container-fluid  py-5" id="here" style="margin-top: -120px;">
+            <div class="container py-5">
+               
+                <div class="row g-5 align-items-center col-lg-8">
+                    <div class=" wow fadeInLeft" data-wow-delay="0.1s">
+                       
+                        <h2 class="display-5 mb-2">StartUp Profile</h2>
+                        <P>Take the Next Step – Update Your Startup Profile Today!</P>
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                        <label for="name">StartUp Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-floating">
+                                        <input type="date" class="form-control" id="date" placeholder="Your Date" required>
+                                        <label for="date">Establishment Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="location" placeholder="Location" required>
+                                        <label for="location">Your Loaction</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="project" placeholder="Project" required>
+                                        <label for="project">Number of Employees</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <select id="startup-category" class="w3-select form-control">
+                                            <option value="" disabled selected style="font-size: smaller;">Startup industry</option>
+                                            <option value="tech-startups">Tech Startups</option>
+                                            <option value="fintech">FinTech Startups</option>
+                                            <option value="healthtech">HealthTech & MedTech</option>
+                                            <option value="edtech">EdTech Startups</option>
+                                            <option value="ecommerce">E-commerce & Retail</option>
+                                            <option value="agritech">AgriTech Startups</option>
+                                            <option value="greentech">GreenTech & CleanTech</option>
+                                            <option value="travel">Travel & Tourism Startups</option>
+                                            <option value="proptech">PropTech Startups</option>
+                                            <option value="automotive">Automotive & Mobility</option>
+                                            <option value="ai">AI & Robotics</option>
+                                            <option value="gaming">Gaming & Esports</option>
+                                            <option value="biotech">BioTech & Pharma</option>
+                                            <option value="spacetech">SpaceTech Startups</option>
+                                            <option value="foodtech">FoodTech Startups</option>
+                                            <option value="legaltech">LegalTech Startups</option>
+                                            <option value="hrtech">HRTech & Recruitment</option>
+                                            <option value="cybersecurity">Cybersecurity Startups</option>
+                                            <option value="govtech">GovTech Startups</option>
+                                            <option value="martech">MarTech & AdTech</option>
+                                            <option value="insurtech">InsurTech Startups</option>
+                                            <option value="supplychain">Supply Chain & Logistics</option>
+                                            <option value="quantum">Quantum Computing</option>
+                                            <option value="fashiontech">FashionTech Startups</option>
+                                            <option value="music">Music & Entertainment</option>
+                                            <option value="fitness">Fitness & Wellness</option>
+                                            <option value="blockchain">Blockchain & Web3</option>
+                                            <option value="drones">Drone & UAV Startups</option>
+                                            <option value="sportstech">SportsTech Startups</option>
+                                            <option value="femtech">FemTech Startups</option>
+                                            <option value="deeptech">DeepTech</option>
+                                        </select>                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Description here" id="Description" style="height: 160px"></textarea>
+                                        <label for="Description">description</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <p>Pitch Deck</p>
+                                    <div class="form-floating">
+                                        <div class="upload-box">
+                                            <label class="upload-label">
+                                                <input type="file" required>
+                                                <img src="img/paperclip-icon.png" alt="Attachment">
+                                                <p>Add an attachment (optional)</p>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <p>Business Plan</p>
+                                    <div class="form-floating">
+                                        <div class="upload-box">
+                                            <label class="upload-label">
+                                                <input type="file" required>
+                                                <img src="img/paperclip-icon.png" alt="Attachment">
+                                                <p>Add an attachment (optional)</p>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <p class="title">Pitch Video (Youtube Video , Google Drive)</p>
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="name" placeholder="Your Link" required>
+                                        <label for="name">Video Link</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 btn">
+                                    <button type="submit" class="btn btn-primary w-100 py-3">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+               
+               
+                </div>
+            </div>
+        </div>
+        <!-- Contact End -->
+
+        <!-- Footer Start -->
+         <!-- Footer Start -->
+        <div class="  text-white" style="background-color: #252525;">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-dark mb-4"><img style="margin-right: 30px;" src="img/logo.png"></img></h4>
+                            <a href="" class="text-white" id="dont"><span style="color: #1A7BFF;">Learn</span>: We provide you with the knowledge and skills needed for success.<br>
+                                <span style="color: #1A7BFF;">Grow</span>: We help you develop your potential and elevate your entrepreneurial journey.<br>
+                                <span style="color: #1A7BFF;">Lead</span>: We empower you to inspire change and drive innovation in the world of entrepreneurship. <br>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3"></div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column text-white">
+                            <h4 class="mb-4 text-dark w3-panel  text-white">Quick Links</h4>
+                            <a href="" class="text-white"> About Us</a>
+                            <a href="" class="text-white"> Contact Us</a>
+                            <a href="" class="text-white"> Privacy Policy</a>
+                            <a href="" class="text-white"> Terms & Conditions</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-dark text-white">Contact Info</h4>
+                            <a href="" class="text-white"><i class="fa fa-map-marker-alt me-2 text-white"></i> Egypt</a>
+                            <a href="" class="text-white"><i class="fas fa-envelope me-2 text-white"></i> HoloWorldTravel.com</a>
+                            <a href="" class="text-white"><i class="fas fa-phone me-2 text-white"></i> 010 333 47114</a>
+                            <a href="" class="mb-3 text-white"><i class="fas fa-phone me-2 text-white"></i> 010 055 76123</a>
+                            <div class="d-flex align-items-center">
+                                <i style="color:#1A7BFF" class="fas fa-share fa-2x me-2"></i>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+        
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright py-4">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-md-0">
+                        <span class="text-white"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Montalq</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end text-white">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+        <!-- Copyright End -->
+
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+        
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    </body>
+
+</html>

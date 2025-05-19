@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+     <style>
+        :root {
+    --primary-color: #4e73df;
+    --success-color: #1cc88a;
+    --info-color: #36b9cc;
+    --warning-color: #f6c23e;
+    --danger-color: #e74a3b;
+    --secondary-color: #858796;
+    --light-color: #f8f9fc;
+    --dark-color: #5a5c69;
+}
+
+body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fc;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #4e73df;
+    color: #fff;
+    transition: all 0.3s;
+    min-height: 100vh;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #3a5ec0;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px 20px;
+    font-size: 1em;
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar ul li a:hover {
+    color: #fff;
+    background: #3a5ec0;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #3a5ec0;
+}
+
+a[data-bs-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#content {
+    width: 100%;
+    padding: 0;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+/* News Cards */
+.news-card {
+    transition: transform 0.3s;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.2);
+}
+
+.news-card .card-img-top {
+    border-top-left-radius: 0.35rem;
+    border-top-right-radius: 0.35rem;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #858796;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #e3e6f0;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #e3e6f0;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #e3e6f0;
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+}
+
+.badge.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.badge.bg-success {
+    background-color: var(--success-color) !important;
+}
+
+.badge.bg-info {
+    background-color: var(--info-color) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--warning-color) !important;
+    color: #000;
+}
+
+.badge.bg-danger {
+    background-color: var(--danger-color) !important;
+}
+
+/* List Group */
+.list-group-item {
+    border: 1px solid #e3e6f0;
+    margin-bottom: 5px;
+    border-radius: 0.35rem !important;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fc;
+}
+
+/* Startup Bio */
+.startup-bio-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Animation for cards */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animated-card {
+    animation: fadeIn 0.6s ease forwards;
+}
+     </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <h3>Startup Dashboard</h3>
+                <strong>SD</strong>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#overview" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Overview
+                    </a>
+                    <ul class="collapse list-unstyled" id="overview">
+                        <li>
+                            <a href="#">Performance</a>
+                        </li>
+                        <li>
+                            <a href="#">Analytics</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#offerings" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-boxes"></i>
+                        Our Offerings
+                    </a>
+                    <ul class="collapse list-unstyled" id="offerings">
+                        <li>
+                            <a href="#">Products</a>
+                        </li>
+                        <li>
+                            <a href="#">Services</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#investors" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        Investors
+                    </a>
+                    <ul class="collapse list-unstyled" id="investors">
+                        <li>
+                            <a href="#">Current Investors</a>
+                        </li>
+                        <li>
+                            <a href="#">Interested Parties</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#news" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-newspaper"></i>
+                        News & Resources
+                    </a>
+                    <ul class="collapse list-unstyled" id="news">
+                        <li>
+                            <a href="#">Business Articles</a>
+                        </li>
+                        <li>
+                            <a href="#">Educational Content</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <!-- Top Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fas fa-envelope"></i></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link  " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle"></i> Startup Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="container-fluid">
+                <!-- Startup Bio Section -->
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 fw-bold text-primary">Startup Biography</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class=" " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                                        <li><a class="dropdown-item" href="#">View Public Page</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3 text-center">
+                                        <img src="img/play-button.png" class="img-fluid rounded-circle mb-3" alt="Startup Logo">
+                                        <h4>TechNova</h4>
+                                        <p class="text-muted">Innovating the future</p>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h5>About Us</h5>
+                                        <p>TechNova is a cutting-edge technology startup focused on developing innovative solutions for the modern digital landscape. Founded in 2020, we've grown from a small team of 3 to a thriving company with 25 employees. Our mission is to simplify complex technologies and make them accessible to everyone.</p>
+                                        
+                                        <div class="row mt-4">
+                                            <div class="col-md-4">
+                                                <h6><i class="fas fa-map-marker-alt text-primary me-2"></i> Location</h6>
+                                                <p>San Francisco, CA</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h6><i class="fas fa-calendar-alt text-primary me-2"></i> Founded</h6>
+                                                <p>June 2020</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h6><i class="fas fa-users text-primary me-2"></i> Team Size</h6>
+                                                <p>25 employees</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products & Services Section -->
+                <div class="row">
+                    <!-- Products -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 fw-bold text-success">Our Products</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class=" " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">Add Product</a></li>
+                                        <li><a class="dropdown-item" href="#">View All</a></li>
+                                        <li><a class="dropdown-item" href="#">Export</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Status</th>
+                                                <th>Revenue</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>NovaAI Platform</td>
+                                                <td><span class="badge bg-success">Live</span></td>
+                                                <td>$25,000/mo</td>
+                                                <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>DataViz Pro</td>
+                                                <td><span class="badge bg-warning">Beta</span></td>
+                                                <td>$8,000/mo</td>
+                                                <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>CloudSecure</td>
+                                                <td><span class="badge bg-info">Development</span></td>
+                                                <td>-</td>
+                                                <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Services -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 fw-bold text-info">Our Services</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class=" " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">Add Service</a></li>
+                                        <li><a class="dropdown-item" href="#">View All</a></li>
+                                        <li><a class="dropdown-item" href="#">Export</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Service</th>
+                                                <th>Clients</th>
+                                                <th>Revenue</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>AI Consulting</td>
+                                                <td>12</td>
+                                                <td>$15,000/mo</td>
+                                                <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Data Migration</td>
+                                                <td>8</td>
+                                                <td>$10,000/mo</td>
+                                                <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>System Integration</td>
+                                                <td>5</td>
+                                                <td>$7,500/mo</td>
+                                                <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Investors Section -->
+                <div class="row">
+                    <!-- Current Investors -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 fw-bold text-warning">Current Investors</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class=" " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">Add Investor</a></li>
+                                        <li><a class="dropdown-item" href="#">View All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Investor</th>
+                                                <th>Type</th>
+                                                <th>Amount</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>TechStars Ventures</td>
+                                                <td><span class="badge bg-primary">Accelerator</span></td>
+                                                <td>$250,000</td>
+                                                <td>Jan 2022</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Innovate Capital</td>
+                                                <td><span class="badge bg-success">VC Firm</span></td>
+                                                <td>$1,000,000</td>
+                                                <td>Jun 2022</td>
+                                            </tr>
+                                            <tr>
+                                                <td>GreenHouse Labs</td>
+                                                <td><span class="badge bg-info">Incubator</span></td>
+                                                <td>$150,000</td>
+                                                <td>Mar 2021</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interested Investors -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 fw-bold text-danger">Interested Investors</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class=" " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">View All</a></li>
+                                        <li><a class="dropdown-item" href="#">Export</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">Y Combinator</h5>
+                                            <small class="text-primary">Accelerator</small>
+                                        </div>
+                                        <p class="mb-1">Expressed interest in our Series A round</p>
+                                        <small>Contact: Michael Chen (michael@yc.com)</small>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">Sequoia Capital</h5>
+                                            <small class="text-success">VC Firm</small>
+                                        </div>
+                                        <p class="mb-1">Requested pitch deck and financials</p>
+                                        <small>Contact: Sarah Johnson (sarah@sequoia.com)</small>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">Founders Factory</h5>
+                                            <small class="text-info">Incubator</small>
+                                        </div>
+                                        <p class="mb-1">Offering mentorship and seed funding</p>
+                                        <small>Contact: David Wilson (david@foundersfactory.com)</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Section -->
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 fw-bold text-dark">News & Educational Resources</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class=" " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">View All</a></li>
+                                        <li><a class="dropdown-item" href="#">Suggest Resource</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100 news-card">
+                                            <img src="img/blog-3.png" class="card-img-top" alt="Article">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Raising Your Series A</h5>
+                                                <p class="card-text">Essential tips for preparing your startup for Series A funding in the current market.</p>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">Read Article</a>
+                                            </div>
+                                            <div class="card-footer">
+                                                <small class="text-muted">Published 3 days ago</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100 news-card">
+                                            <img src="img/blog-2.png" class="card-img-top" alt="Article">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Growth Hacking 101</h5>
+                                                <p class="card-text">Learn the latest growth hacking techniques that successful startups are using.</p>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">Read Article</a>
+                                            </div>
+                                            <div class="card-footer">
+                                                <small class="text-muted">Published 1 week ago</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100 news-card">
+                                            <img src="img/blog-1.png" class="card-img-top" alt="Article">
+                                            <div class="card-body">
+                                                <h5 class="card-title">2023 Tech Trends</h5>
+                                                <p class="card-text">The most important technology trends that will shape the startup landscape this year.</p>
+                                                <a href="#" class="btn btn-sm btn-outline-primary">Read Article</a>
+                                            </div>
+                                            <div class="card-footer">
+                                                <small class="text-muted">Published 2 weeks ago</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Sidebar toggle
+    document.getElementById('sidebarCollapse').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('content').classList.toggle('active');
+    });
+
+    // Close sidebar when clicking on a dropdown item on mobile
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const sidebar = document.getElementById('sidebar');
+    
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', function() {
+            if (window.innerWidth < 768) {
+                sidebar.classList.add('active');
+                document.getElementById('content').classList.add('active');
+            }
+        });
+    });
+
+    // Highlight active menu item
+    const currentLocation = location.href;
+    const menuItems = document.querySelectorAll('#sidebar a');
+    const menuLength = menuItems.length;
+    
+    for (let i = 0; i < menuLength; i++) {
+        if (menuItems[i].href === currentLocation) {
+            menuItems[i].classList.add('active');
+            
+            // Also highlight the parent dropdown if this is a child item
+            const parentCollapse = menuItems[i].closest('.collapse');
+            if (parentCollapse) {
+                const parentLink = document.querySelector(`a[href="#${parentCollapse.id}"]`);
+                if (parentLink) {
+                    parentLink.classList.add('active');
+                }
+            }
+        }
+    }
+
+    // Initialize tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Add animation to cards on scroll
+    const cards = document.querySelectorAll('.news-card, .card.shadow');
+    
+    const animateOnScroll = function() {
+        cards.forEach(card => {
+            const cardPosition = card.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (cardPosition < screenPosition) {
+                card.classList.add('animated-card');
+            }
+        });
+    };
+    
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll(); // Run once on load
+
+    // Add hover effect to table rows
+    const tableRows = document.querySelectorAll('tbody tr');
+    tableRows.forEach(row => {
+        row.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#f8f9fc';
+            this.style.cursor = 'pointer';
+        });
+        row.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '';
+        });
+    });
+
+    // Add click event to list group items
+    const listGroupItems = document.querySelectorAll('.list-group-item');
+    listGroupItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Remove active class from all items
+            listGroupItems.forEach(i => i.classList.remove('active'));
+            // Add active class to clicked item
+            this.classList.add('active');
+        });
+    });
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grant Services Marketplace</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --secondary-color: #858796;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fc;
+            color: #333;
+        }
+
+        .navbar {
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            margin-top: -50px;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .category-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.2);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .service-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.2);
+        }
+
+        .service-img {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .badge {
+            font-weight: 600;
+            padding: 0.5em 0.8em;
+        }
+
+        .rating {
+            color: var(--warning-color);
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .provider-badge {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .pagination .page-link {
+            color: var(--primary-color);
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            height: 100%;
+        }
+
+        .testimonial-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-radius: 20px;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Animation for cards */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated-card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .search-container {
+                margin-top: 0;
+            }
+            
+            .service-img {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-hands-helping me-2 text-primary"></i>
+                Muntaliq
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="education.html">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="StartUp.html">Start Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Programs.html">Programs</a>
+                    </li>
+                </ul>
+                <div class="ms-3 d-flex">
+                    <a href="login.html" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="SignUp.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">Grant Services Marketplace</h1>
+            <p class="lead mb-4">Find professional services to help with your grant applications and funded projects</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <div class="container">
+        <div class="search-container">
+            <form>
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                            <input type="text" class="form-control" placeholder="Search services...">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select">
+                            <option selected>All Categories</option>
+                            <option>Legal Services</option>
+                            <option>Marketing & Outreach</option>
+                            <option>Financial Planning</option>
+                            <option>Program Evaluation</option>
+                            <option>Technical Writing</option>
+                            <option>Design Services</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-search me-1"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Categories Section -->
+        <section class="mb-5">
+            <h2 class="mb-4">Popular Service Categories</h2>
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="category-card card text-center p-4">
+                        <div class="category-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h5>Legal Services</h5>
+                        <p class="text-muted">Compliance, contracts, IP protection</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Browse</a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="category-card card text-center p-4">
+                        <div class="category-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h5>Marketing</h5>
+                        <p class="text-muted">Outreach, campaigns, social media</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Browse</a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="category-card card text-center p-4">
+                        <div class="category-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h5>Evaluation</h5>
+                        <p class="text-muted">Impact assessment, metrics</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Browse</a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="category-card card text-center p-4">
+                        <div class="category-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <h5>Grant Writing</h5>
+                        <p class="text-muted">Proposals, applications, editing</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Browse</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Featured Services</h2>
+                <a href="#" class="btn btn-outline-primary">View All</a>
+            </div>
+
+            <div class="row">
+                <!-- Filter Sidebar -->
+                <div class="col-lg-3">
+                    <div class="filter-section">
+                        <h5 class="mb-3">Filter Services</h5>
+                        
+                        <div class="mb-4">
+                            <h6 class="mb-3">Categories</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="legalCheck" checked>
+                                <label class="form-check-label" for="legalCheck">Legal Services</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="marketingCheck" checked>
+                                <label class="form-check-label" for="marketingCheck">Marketing</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="writingCheck" checked>
+                                <label class="form-check-label" for="writingCheck">Grant Writing</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="evaluationCheck" checked>
+                                <label class="form-check-label" for="evaluationCheck">Evaluation</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="designCheck" checked>
+                                <label class="form-check-label" for="designCheck">Design</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6 class="mb-3">Price Range</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="priceRange" id="allPrice" checked>
+                                <label class="form-check-label" for="allPrice">All Prices</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="priceRange" id="under1000">
+                                <label class="form-check-label" for="under1000">Under $1,000</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="priceRange" id="1000to5000">
+                                <label class="form-check-label" for="1000to5000">$1,000 - $5,000</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="priceRange" id="over5000">
+                                <label class="form-check-label" for="over5000">Over $5,000</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6 class="mb-3">Provider Type</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="individualCheck" checked>
+                                <label class="form-check-label" for="individualCheck">Individuals</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="agencyCheck" checked>
+                                <label class="form-check-label" for="agencyCheck">Agencies</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="nonprofitCheck" checked>
+                                <label class="form-check-label" for="nonprofitCheck">Non-profits</label>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100">Apply Filters</button>
+                    </div>
+                </div>
+
+                <!-- Services List -->
+                <div class="col-lg-9">
+                    <div class="row">
+                        <!-- Service 1 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="service-card card animated-card">
+                                <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="service-img" alt="Legal Consultation">
+                                <div class="card-body">
+                                    <span class="provider-badge"><i class="fas fa-user-tie me-1"></i> Individual</span>
+                                    <h5 class="card-title">Grant Legal Consultation</h5>
+                                    <p class="card-text text-muted">Expert legal advice for non-profits on compliance, contracts, and intellectual property.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                                            <span class="text-muted ms-2">(42)</span>
+                                        </div>
+                                        <div class="price">$150/hr</div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white border-top-0">
+                                    <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="far fa-eye me-1"></i> Details</a>
+                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart me-1"></i> Book</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service 2 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="service-card card animated-card">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="service-img" alt="Marketing Strategy">
+                                <div class="card-body">
+                                    <span class="provider-badge"><i class="fas fa-building me-1"></i> Agency</span>
+                                    <h5 class="card-title">Non-profit Marketing Strategy</h5>
+                                    <p class="card-text text-muted">Comprehensive marketing plan tailored to your organization's mission and budget.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                                            <span class="text-muted ms-2">(28)</span>
+                                        </div>
+                                        <div class="price">$2,500</div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white border-top-0">
+                                    <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="far fa-eye me-1"></i> Details</a>
+                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart me-1"></i> Book</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service 3 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="service-card card animated-card">
+                                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="service-img" alt="Grant Writing">
+                                <div class="card-body">
+                                    <span class="provider-badge"><i class="fas fa-user-tie me-1"></i> Individual</span>
+                                    <h5 class="card-title">Professional Grant Writing</h5>
+                                    <p class="card-text text-muted">Complete grant application package with research, writing, and submission support.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                                            <span class="text-muted ms-2">(35)</span>
+                                        </div>
+                                        <div class="price">$3,000</div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white border-top-0">
+                                    <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="far fa-eye me-1"></i> Details</a>
+                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart me-1"></i> Book</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service 4 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="service-card card animated-card">
+                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="service-img" alt="Brand Identity">
+                                <div class="card-body">
+                                    <span class="provider-badge"><i class="fas fa-building me-1"></i> Agency</span>
+                                    <h5 class="card-title">Non-profit Brand Identity</h5>
+                                    <p class="card-text text-muted">Logo design, brand guidelines, and visual identity development for your cause.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="rating"><i class="fas fa-star"></i> 4.6</span>
+                                            <span class="text-muted ms-2">(19)</span>
+                                        </div>
+                                        <div class="price">$1,200</div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white border-top-0">
+                                    <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="far fa-eye me-1"></i> Details</a>
+                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart me-1"></i> Book</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service 5 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="service-card card animated-card">
+                                <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="service-img" alt="Financial Planning">
+                                <div class="card-body">
+                                    <span class="provider-badge"><i class="fas fa-hands-helping me-1"></i> Non-profit</span>
+                                    <h5 class="card-title">Grant Budget Planning</h5>
+                                    <p class="card-text text-muted">Create realistic budgets and financial plans for your grant proposals.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                                            <span class="text-muted ms-2">(14)</span>
+                                        </div>
+                                        <div class="price">$800</div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white border-top-0">
+                                    <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="far fa-eye me-1"></i> Details</a>
+                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart me-1"></i> Book</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service 6 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="service-card card animated-card">
+                                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="service-img" alt="Program Evaluation">
+                                <div class="card-body">
+                                    <span class="provider-badge"><i class="fas fa-building me-1"></i> Agency</span>
+                                    <h5 class="card-title">Program Impact Evaluation</h5>
+                                    <p class="card-text text-muted">Professional assessment of your program's outcomes and effectiveness.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                                            <span class="text-muted ms-2">(22)</span>
+                                        </div>
+                                        <div class="price">$4,500</div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white border-top-0">
+                                    <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="far fa-eye me-1"></i> Details</a>
+                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-shopping-cart me-1"></i> Book</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="mb-5">
+            <h2 class="text-center mb-5">What Our Clients Say</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" class="testimonial-img" alt="Client">
+                        <div class="rating mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-3">"The grant writing service helped us secure $50,000 in funding. Their expertise made all the difference!"</p>
+                        <h6>Sarah Johnson</h6>
+                        <small class="text-muted">Director, Community Outreach</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="testimonial-img" alt="Client">
+                        <div class="rating mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-3">"Our new brand identity perfectly captures our mission. The design team was incredibly responsive."</p>
+                        <h6>Michael Chen</h6>
+                        <small class="text-muted">Founder, Green Future Initiative</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" class="testimonial-img" alt="Client">
+                        <div class="rating mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="mb-3">"The legal consultation saved us from making costly compliance mistakes. Worth every penny!"</p>
+                        <h6>Amanda Rodriguez</h6>
+                        <small class="text-muted">Executive Director, Youth Arts</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section text-center">
+            <div class="container">
+                <h2 class="mb-4">Are You a Service Provider?</h2>
+                <p class="lead mb-4">Join our marketplace and connect with organizations seeking your expertise</p>
+                <a href="#" class="btn btn-light btn-lg me-3">Learn More</a>
+                <a href="#" class="btn btn-outline-light btn-lg">Sign Up Now</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-4">Muntaliq</h5>
+                    <p>Connecting non-profits and social enterprises with the professional services they need to succeed.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="mb-4">Services</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="#">Legal</a></li>
+                        <li class="mb-2"><a href="#">Marketing</a></li>
+                        <li class="mb-2"><a href="#">Grant Writing</a></li>
+                        <li class="mb-2"><a href="#">Evaluation</a></li>
+                        <li class="mb-2"><a href="#">Design</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="mb-4">Company</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="#">About Us</a></li>
+                        <li class="mb-2"><a href="#">Our Team</a></li>
+                        <li class="mb-2"><a href="#">Careers</a></li>
+                        <li class="mb-2"><a href="#">Blog</a></li>
+                        <li class="mb-2"><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h6 class="mb-4">Newsletter</h6>
+                    <p>Subscribe to get updates on new services and grants.</p>
+                    <form class="mt-3">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Your email">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small mb-0">&copy; 2023 Muntaliq. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="list-inline small mb-0">
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="#">Terms of Service</a></li>
+                        <li class="list-inline-item"><a href="#">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation for cards on scroll
+            const animateOnScroll = function() {
+                const cards = document.querySelectorAll('.animated-card');
+                cards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state
+            const cards = document.querySelectorAll('.animated-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease';
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+
+            // Service card hover effect
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.3)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.2)';
+                });
+            });
+
+            // Category card hover effect
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.3)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.2)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

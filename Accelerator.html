@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accelerator Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+    --primary-color: #4e73df;
+    --success-color: #1cc88a;
+    --info-color: #36b9cc;
+    --warning-color: #f6c23e;
+    --danger-color: #e74a3b;
+    --secondary-color: #858796;
+    --light-color: #f8f9fc;
+    --dark-color: #5a5c69;
+}
+
+body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fc;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #4e73df;
+    color: #fff;
+    transition: all 0.3s;
+    min-height: 100vh;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #3a5ec0;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px 20px;
+    font-size: 1em;
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar ul li a:hover {
+    color: #fff;
+    background: #3a5ec0;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #3a5ec0;
+}
+
+a[data-bs-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#content {
+    width: 100%;
+    padding: 0;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+/* Stats Card */
+.border-left-primary {
+    border-left: 0.25rem solid var(--primary-color) !important;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid var(--success-color) !important;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid var(--info-color) !important;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid var(--warning-color) !important;
+}
+
+/* Startup Cards */
+.startup-card {
+    transition: transform 0.3s;
+    height: 100%;
+}
+
+.startup-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.2);
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #858796;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #e3e6f0;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #e3e6f0;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #e3e6f0;
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    text-transform: uppercase;
+}
+
+.badge.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.badge.bg-success {
+    background-color: var(--success-color) !important;
+}
+
+.badge.bg-info {
+    background-color: var(--info-color) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--warning-color) !important;
+    color: #000;
+}
+
+.badge.bg-danger {
+    background-color: var(--danger-color) !important;
+}
+
+/* Custom colors for tags */
+.badge.bg-secondary {
+    background-color: var(--secondary-color) !important;
+}
+
+/* Animation for cards */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animated-card {
+    animation: fadeIn 0.6s ease forwards;
+}
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <h3>Accelerator</h3>
+                <strong>I</strong>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#dashboard" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                    <ul class="collapse list-unstyled" id="dashboard">
+                        <li>
+                            <a href="#">Overview</a>
+                        </li>
+                        <li>
+                            <a href="#">Performance</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#invested" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        Invested In
+                    </a>
+                    <ul class="collapse list-unstyled" id="invested">
+                        <li>
+                            <a href="#">Physical Startups</a>
+                        </li>
+                        <li>
+                            <a href="#">Add Investment</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#startups" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-rocket"></i>
+                        All Startups
+                    </a>
+                    <ul class="collapse list-unstyled" id="startups">
+                        
+                        <li>
+                            <a href="#">Physical Tagged</a>
+                        </li>
+                        <li>
+                            <a href="#">Add New</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <!-- Top Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fas fa-envelope"></i></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle"></i> Accelerator 
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="container-fluid">
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col me-2">
+                                        <div class="text-xs fw-bold text-primary text-uppercase mb-1">
+                                            Total Investments</div>
+                                        <div class="h5 mb-0 fw-bold text-gray-800">42</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col me-2">
+                                        <div class="text-xs fw-bold text-info text-uppercase mb-1">
+                                            Total Invested Money</div>
+                                        <div class="h5 mb-0 fw-bold text-gray-800">300$</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-store fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col me-2">
+                                        <div class="text-xs fw-bold text-info text-uppercase mb-1">
+                                            Physical Startups</div>
+                                        <div class="h5 mb-0 fw-bold text-gray-800">14</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-store fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col me-2">
+                                        <div class="text-xs fw-bold text-warning text-uppercase mb-1">
+                                            Successful Exits</div>
+                                        <div class="h5 mb-0 fw-bold text-gray-800">7</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-trophy fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Invested In Section -->
+                <div class="row">
+                
+
+                    <!-- Physical Startups -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 fw-bold text-info">Physical Startups</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">View All</a></li>
+                                        <li><a class="dropdown-item" href="#">Add New</a></li>
+                                        <li><a class="dropdown-item" href="#">Export</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Startup</th>
+                                                <th>Investment</th>
+                                                <th>Location</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>GreenGrocer</td>
+                                                <td>$200,000</td>
+                                                <td>San Francisco</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>UrbanBrew</td>
+                                                <td>$350,000</td>
+                                                <td>New York</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>TechHardware</td>
+                                                <td>$600,000</td>
+                                                <td>Austin</td>
+                                                <td><span class="badge bg-danger">Closed</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>BioLabs</td>
+                                                <td>$1,200,000</td>
+                                                <td>Boston</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a href="#" class="btn btn-sm btn-info">View All Physical</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               
+
+            
+
+                    <!-- Physical Tagged Startups -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 fw-bold text-warning">Physical Tagged Startups</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">View All</a></li>
+                                        <li><a class="dropdown-item" href="#">Add Tag</a></li>
+                                        <li><a class="dropdown-item" href="#">Export</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <div class="card startup-card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <h5 class="card-title mb-0">Urban Farm</h5>
+                                                    <span class="badge bg-warning">PHYSICAL</span>
+                                                </div>
+                                                <p class="card-text text-muted">Vertical farming in urban areas</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="text-muted">Location: Chicago</small>
+                                                    <small><strong>$2.1M</strong> raised</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <div class="card startup-card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <h5 class="card-title mb-0">RoboKitchen</h5>
+                                                    <span class="badge bg-warning">PHYSICAL</span>
+                                                </div>
+                                                <p class="card-text text-muted">Automated restaurant kitchens</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="text-muted">Location: Miami</small>
+                                                    <small><strong>$3.5M</strong> raised</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <div class="card startup-card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <h5 class="card-title mb-0">EcoRetail</h5>
+                                                    <span class="badge bg-warning">PHYSICAL</span>
+                                                </div>
+                                                <p class="card-text text-muted">Sustainable product stores</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="text-muted">Location: Seattle</small>
+                                                    <small><strong>$1.8M</strong> raised</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <div class="card startup-card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <h5 class="card-title mb-0">BioManufacture</h5>
+                                                    <span class="badge bg-warning">PHYSICAL</span>
+                                                </div>
+                                                <p class="card-text text-muted">Eco-friendly production</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="text-muted">Location: Denver</small>
+                                                    <small><strong>$4.2M</strong> raised</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-2">
+                                    <a href="#" class="btn btn-sm btn-warning">View All Physical Startups</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Sidebar toggle
+    document.getElementById('sidebarCollapse').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('content').classList.toggle('active');
+    });
+
+    // Close sidebar when clicking on a dropdown item on mobile
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const sidebar = document.getElementById('sidebar');
+    
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', function() {
+            if (window.innerWidth < 768) {
+                sidebar.classList.add('active');
+                document.getElementById('content').classList.add('active');
+            }
+        });
+    });
+
+    // Highlight active menu item
+    const currentLocation = location.href;
+    const menuItems = document.querySelectorAll('#sidebar a');
+    const menuLength = menuItems.length;
+    
+    for (let i = 0; i < menuLength; i++) {
+        if (menuItems[i].href === currentLocation) {
+            menuItems[i].classList.add('active');
+            
+            // Also highlight the parent dropdown if this is a child item
+            const parentCollapse = menuItems[i].closest('.collapse');
+            if (parentCollapse) {
+                const parentLink = document.querySelector(`a[href="#${parentCollapse.id}"]`);
+                if (parentLink) {
+                    parentLink.classList.add('active');
+                }
+            }
+        }
+    }
+
+    // Initialize tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Add animation to cards on scroll
+    const cards = document.querySelectorAll('.startup-card, .card.shadow');
+    
+    const animateOnScroll = function() {
+        cards.forEach(card => {
+            const cardPosition = card.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (cardPosition < screenPosition) {
+                card.classList.add('animated-card');
+            }
+        });
+    };
+    
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll(); // Run once on load
+
+    // Add hover effect to table rows
+    const tableRows = document.querySelectorAll('tbody tr');
+    tableRows.forEach(row => {
+        row.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#f8f9fc';
+            this.style.cursor = 'pointer';
+        });
+        row.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '';
+        });
+    });
+});
+    </script>
+</body>
+</html>
